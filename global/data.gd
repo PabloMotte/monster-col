@@ -127,3 +127,5 @@ const element_modifier = {
 	Element.FIRE: {Element.FIRE: 1, Element.WATER: 0.5, Element.PLANT: 2},
 	Element.WATER: {Element.FIRE: 2, Element.WATER: 1, Element.PLANT: 0.5},
 	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}}
+
+var current_character: Character
