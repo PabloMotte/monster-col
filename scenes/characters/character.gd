@@ -4,6 +4,7 @@ class_name Character extends CharacterBody2D
 @export var view_distance: int = 50
 var view_direction: Vector2i
 var direction: Vector2
+var can_move: bool = true
 
 var speed: int = 60
 var current_h_frame: float

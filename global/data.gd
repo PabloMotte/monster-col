@@ -9,6 +9,7 @@ enum Location {OVERWORLD, BATTLE, HOSPITAL, HOUSE}
 enum Biome {GRASS, DESERT, ICE}
 
 const ANIMATION_SPEED = 6
+const TILE_ANIMATION_SPEED = 2
 const character_view_directions = {
 	Vector2i.DOWN: 0, 
 	Vector2i.LEFT: 1, 
@@ -33,7 +34,8 @@ const character_texture_data = {
 	CharacterStyle.BOY: "res://graphics/characters/young_boy.png",
 	CharacterStyle.GIRL: "res://graphics/characters/young_girl.png",
 	}
-const LEVEL_PATHS = {}
+const LEVEL_PATHS = {Data.Location.OVERWORLD: "res://scenes/levels/overworld.tscn",
+					Data.Location.HOUSE: "res://scenes/levels/house.tscn"}
 const monster_data = {
 	Monster.SPARCHU: {
 		'name': 'Sparchu', 
@@ -129,3 +131,4 @@ const element_modifier = {
 	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}}
 
 var current_character: Character
+var current_location: Data.Location

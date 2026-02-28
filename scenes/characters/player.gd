@@ -4,7 +4,8 @@ var interactable: Character
 
 func _process(delta: float) -> void:
 	get_input()
-	move()
+	if can_move:
+		move()
 	animate(delta)
 	update_view_direction()
 	check_interactable()
@@ -32,3 +33,8 @@ func update_view_direction():
 func check_interactable():
 	if $RayCast2D.collide_with_bodies:
 		interactable = $RayCast2D.get_collider()
+
+func stop() -> void:
+	direction = Vector2.ZERO
+	can_move = false
+	
