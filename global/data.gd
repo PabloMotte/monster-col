@@ -1,13 +1,8 @@
 extends Node
 
+# Overworld data
 enum CharacterStyle {CHARACTER, BLOND, PLAYER, GREEN, FIRE, GRASS, ICE, PURPLE, STRAW, BOY, GIRL}
 enum Location {OVERWORLD, HOUSE, HOSPITAL, GRASS_ARENA, FIRE_ARENA}
-enum Monster {SPARCHU, ATROX, JACANA, CINDRILL, CLEAF, DRAEM, FINIETTE, FINSTA, FRIOLERA, GULFIN, IVIERON, LARVEA, PLUMA, PLUMETTE, POUCH, VULKEO}
-enum Element {FIRE, WATER, PLANT}
-enum Attack {CLAW, FIRE, ICE, WATER, HEAL, EXPLOSION}
-enum MenuState {MAIN, ATTACK, DEFEND, SWAP, CATCH, SELECT}
-enum Biome {GRASS, DESERT, ICE}
-
 const ANIMATION_SPEED = 6
 const TILE_ANIMATION_SPEED = 2
 const character_view_directions = {
@@ -41,6 +36,19 @@ const LEVEL_PATHS = {
 	Location.GRASS_ARENA: "res://scenes/levels/plant_arena.tscn",
 	Location.FIRE_ARENA: "res://scenes/levels/fire_arena.tscn"
 }
+
+var current_char: Character
+var current_loc: Data.Location
+var char_data = {
+	
+}
+
+# Battle data
+enum Monster {SPARCHU, ATROX, JACANA, CINDRILL, CLEAF, DRAEM, FINIETTE, FINSTA, FRIOLERA, GULFIN, IVIERON, LARVEA, PLUMA, PLUMETTE, POUCH, VULKEO}
+enum Attack {CLAW, FIRE, ICE, WATER, HEAL, EXPLOSION}
+enum Element {FIRE, WATER, PLANT}
+enum MenuState {MAIN, ATTACK, DEFEND, SWAP, CATCH, SELECT}
+enum Biome {GRASS, DESERT, ICE}
 const monster_data = {
 	Monster.SPARCHU: {
 		'name': 'Sparchu', 
@@ -140,9 +148,3 @@ const element_modifier = {
 	Element.FIRE: {Element.FIRE: 1, Element.WATER: 0.5, Element.PLANT: 2},
 	Element.WATER: {Element.FIRE: 2, Element.WATER: 1, Element.PLANT: 0.5},
 	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}}
-
-var current_char: Character
-var current_loc: Data.Location
-var char_data = {
-	
-}

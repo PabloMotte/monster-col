@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cabjgleaiswo7"]
+
+[ext_resource type="Texture2D" uid="uid://ckr0isu4oe6rb" path="res://graphics/backgrounds/background1.png" id="1_ha178"]
+[ext_resource type="Script" uid="uid://ca5clqnojwa7c" path="res://scenes/Battle/battle.gd" id="1_mpo2y"]
+
+[node name="Battle" type="Node2D" unique_id=1318687868]
+script = ExtResource("1_mpo2y")
+
+[node name="BG" type="Sprite2D" parent="." unique_id=168452792]
+texture = ExtResource("1_ha178")
+metadata/_edit_lock_ = true
+
+[node name="Camera2D" type="Camera2D" parent="BG" unique_id=1263669882]
+rotation = -0.5235988
+zoom = Vector2(2, 2)
+
+[node name="StartPositions" type="Node2D" parent="." unique_id=438652721]
+
+[node name="Player" type="Node2D" parent="StartPositions" unique_id=417167830]
+
+[node name="Marker2D" type="Marker2D" parent="StartPositions/Player" unique_id=1675469848]
+position = Vector2(-225, -25)
+
+[node name="Marker2D2" type="Marker2D" parent="StartPositions/Player" unique_id=130345190]
+position = Vector2(-150, 50)
+
+[node name="Marker2D3" type="Marker2D" parent="StartPositions/Player" unique_id=51228122]
+position = Vector2(-225, 125)
+
+[node name="Enemy" type="Node2D" parent="StartPositions" unique_id=1005239305]
+
+[node name="Marker2D" type="Marker2D" parent="StartPositions/Enemy" unique_id=751906477]
+position = Vector2(225, -25)
+
+[node name="Marker2D2" type="Marker2D" parent="StartPositions/Enemy" unique_id=1574168396]
+position = Vector2(150, 50)
+
+[node name="Marker2D3" type="Marker2D" parent="StartPositions/Enemy" unique_id=826837290]
+position = Vector2(225, 125)
+
+[node name="BattleSprites" type="Node2D" parent="." unique_id=764423396]
+
+[node name="Player" type="Node2D" parent="BattleSprites" unique_id=342784419]
+
+[node name="Enemy" type="Node2D" parent="BattleSprites" unique_id=1420157813]
