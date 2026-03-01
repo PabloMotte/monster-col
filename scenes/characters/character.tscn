@@ -1,21 +1,21 @@
-[gd_scene format=3 uid="uid://cxv4csgbp3pwc"]
+[gd_scene load_steps=4 format=3 uid="uid://cxv4csgbp3pwc"]
 
 [ext_resource type="Script" uid="uid://d33mupdaysesm" path="res://scenes/characters/character.gd" id="1_1bdar"]
 [ext_resource type="Texture2D" uid="uid://w282b80xyc2s" path="res://graphics/characters/character.png" id="1_x31xa"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1bdar"]
-radius = 6.0
-height = 12.0
+radius = 5.0
+height = 22.0
 
-[node name="Character" type="CharacterBody2D" unique_id=340562468]
+[node name="Character" type="CharacterBody2D"]
 script = ExtResource("1_1bdar")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1717531006]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_x31xa")
 hframes = 4
 vframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1665250775]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1bdar")
 
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=541221933]
+[node name="RayCast2D" type="RayCast2D" parent="."]

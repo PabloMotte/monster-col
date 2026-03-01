@@ -1,16 +1,15 @@
-[gd_scene format=3 uid="uid://cwn2hli5pmi7x"]
+[gd_scene load_steps=3 format=3 uid="uid://cwn2hli5pmi7x"]
 
 [ext_resource type="Script" uid="uid://0keo2ijqjlms" path="res://scenes/levels/transition_gate.gd" id="1_n08rl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7drs8"]
 
-[node name="TransitionGate" type="Area2D" unique_id=1788975048]
+[node name="TransitionGate" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_n08rl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=298838650]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7drs8")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

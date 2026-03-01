@@ -1,24 +1,45 @@
-[gd_scene format=3 uid="uid://cv63lfjtpnaqy"]
+[gd_scene load_steps=5 format=3 uid="uid://cv63lfjtpnaqy"]
 
 [ext_resource type="Script" uid="uid://cbhdbu6sbl1bf" path="res://scenes/characters/dialog_box.gd" id="1_dscfi"]
+[ext_resource type="Texture2D" uid="uid://bpaldv62k725s" path="res://graphics/UI/frame.png" id="2_kdug2"]
+[ext_resource type="FontFile" uid="uid://bgtsihfoyjqxw" path="res://graphics/fonts/dogicapixel.otf" id="3_gfq4p"]
 
-[node name="DialogBox" type="PanelContainer" unique_id=1313722649]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gfq4p"]
+
+[node name="DialogBox" type="PanelContainer"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -47.5
+offset_left = -48.0
 offset_top = -20.0
-offset_right = 47.5
+offset_right = 48.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gfq4p")
 script = ExtResource("1_dscfi")
 
-[node name="MarginContainer" type="MarginContainer" parent="." unique_id=874702449]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 2
+texture = ExtResource("2_kdug2")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
-[node name="Label" type="Label" parent="MarginContainer" unique_id=851532680]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_gfq4p")
+text = "some test dialog "
+horizontal_alignment = 1
+vertical_alignment = 1
