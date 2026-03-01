@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ckr0isu4oe6rb" path="res://graphics/backgrounds/background1.png" id="1_ha178"]
 [ext_resource type="Script" uid="uid://ca5clqnojwa7c" path="res://scenes/Battle/battle.gd" id="1_mpo2y"]
+[ext_resource type="PackedScene" uid="uid://b0i405bjg2jaq" path="res://scenes/Battle/battle_menu.tscn" id="3_jl7sv"]
 
 [node name="Battle" type="Node2D" unique_id=1318687868]
 script = ExtResource("1_mpo2y")
@@ -12,7 +13,7 @@ metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="BG" unique_id=1263669882]
 rotation = -0.5235988
-zoom = Vector2(2, 2)
+zoom = Vector2(3, 3)
 
 [node name="StartPositions" type="Node2D" parent="." unique_id=438652721]
 
@@ -43,3 +44,7 @@ position = Vector2(225, 125)
 [node name="Player" type="Node2D" parent="BattleSprites" unique_id=342784419]
 
 [node name="Enemy" type="Node2D" parent="BattleSprites" unique_id=1420157813]
+
+[node name="BattleMenu" parent="." unique_id=137701470 instance=ExtResource("3_jl7sv")]
+
+[connection signal="defend" from="BattleMenu" to="." method="_on_battle_menu_defend"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cyqsyl6yp7fnn" path="res://graphics/battle sprites/Atrox.png" id="1_br5ip"]
 [ext_resource type="Script" uid="uid://b5i85pr5tnrf4" path="res://scenes/Battle/battle_sprite.gd" id="2_p0lrl"]
+[ext_resource type="Texture2D" uid="uid://cuiv500vdnptd" path="res://graphics/UI/vbar.png" id="3_dhegi"]
 
 [sub_resource type="Animation" id="Animation_p0lrl"]
 resource_name = "Attack"
@@ -58,7 +59,7 @@ _data = {
 &"RESET": SubResource("Animation_88wqi")
 }
 
-[node name="BattleSprite" type="Sprite2D" unique_id=1829696059]
+[node name="BattleSprite" type="Sprite2D" unique_id=1829696059 groups=["BattleSprites"]]
 texture = ExtResource("1_br5ip")
 hframes = 4
 vframes = 2
@@ -67,3 +68,51 @@ script = ExtResource("2_p0lrl")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=128051438]
 libraries/ = SubResource("AnimationLibrary_2fr1i")
 autoplay = &"Idle"
+
+[node name="Control" type="Control" parent="." unique_id=268187617]
+custom_minimum_size = Vector2(80, 120)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -68.0
+offset_right = -28.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NameContainer" type="PanelContainer" parent="Control" unique_id=401760270]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/NameContainer" unique_id=130673560]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="Control/NameContainer/MarginContainer" unique_id=994195865]
+layout_mode = 2
+text = "~name"
+
+[node name="ReadyProgressBar" type="TextureProgressBar" parent="Control" unique_id=1632316870]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+grow_vertical = 2
+value = 55.0
+fill_mode = 3
+texture_under = ExtResource("3_dhegi")
+texture_progress = ExtResource("3_dhegi")
+tint_under = Color(0.12156863, 0.12156863, 0.12156863, 1)
+tint_progress = Color(1, 1, 0.41568628, 1)
+
+[connection signal="value_changed" from="Control/ReadyProgressBar" to="." method="_on_ready_progress_bar_value_changed"]

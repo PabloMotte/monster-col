@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://d1r6kb431bi0y"]
+
+[ext_resource type="Script" uid="uid://bg1nk2ld55uvb" path="res://scenes/Battle/battle_attack_button.gd" id="1_4pdjr"]
+
+[node name="BattleAttackButton" type="Button" unique_id=1269586807]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Attack"
+script = ExtResource("1_4pdjr")

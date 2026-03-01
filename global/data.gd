@@ -35,7 +35,7 @@ const LEVEL_PATHS = {
 	Location.HOSPITAL: "res://scenes/levels/hospital.tscn",
 	Location.GRASS_ARENA: "res://scenes/levels/plant_arena.tscn",
 	Location.FIRE_ARENA: "res://scenes/levels/fire_arena.tscn"
-}
+	}
 
 var current_char: Character
 var current_loc: Data.Location
@@ -44,11 +44,19 @@ var char_data = {
 }
 
 # Battle data
-enum Monster {SPARCHU, ATROX, JACANA, CINDRILL, CLEAF, DRAEM, FINIETTE, FINSTA, FRIOLERA, GULFIN, IVIERON, LARVEA, PLUMA, PLUMETTE, POUCH, VULKEO}
+enum Monster {SPARCHU, ATROX, JACANA, CINDRILL, 
+			CLEAF, DRAEM, FINIETTE, FINSTA, 
+			FRIOLERA, GULFIN, IVIERON, LARVEA, 
+			PLUMA, PLUMETTE, POUCH, VULKEO}
 enum Attack {CLAW, FIRE, ICE, WATER, HEAL, EXPLOSION}
 enum Element {FIRE, WATER, PLANT}
 enum MenuState {MAIN, ATTACK, DEFEND, SWAP, CATCH, SELECT}
 enum Biome {GRASS, DESERT, ICE}
+const biome_bg = {
+	Biome.GRASS: "res://graphics/backgrounds/background1.png",
+	Biome.DESERT: "res://graphics/backgrounds/background2.png",
+	Biome.ICE: "res://graphics/backgrounds/background3.png",
+	}
 const monster_data = {
 	Monster.SPARCHU: {
 		'name': 'Sparchu', 
@@ -71,13 +79,76 @@ const monster_data = {
 		'stats': {'max hp': 17, 'max ep': 14, 'speed': 1,},
 		'attacks': {0: Attack.CLAW, 12: Attack.FIRE, 24: Attack.HEAL, 30: Attack.EXPLOSION},
 		'element': Element.FIRE},
+	Monster.FINSTA: {
+		'name': 'Finsta', 
+		'battle texture': "res://graphics/battle sprites/Finsta.png",
+		'icon texture': "res://graphics/menu sprites/Finsta.png",
+		'stats': {'max hp': 5, 'max ep': 6, 'speed': 0.7},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.ICE},
+		'element': Element.WATER},
 	Monster.GULFIN: {
 		'name': 'Gulfin', 
 		'battle texture': "res://graphics/battle sprites/Gulfin.png",
 		'icon texture': "res://graphics/menu sprites/Gulfin.png",
 		'stats': {'max hp': 9, 'max ep': 8, 'speed': 0.8},
-		'attacks': {0: Attack.CLAW, 12: Attack.FIRE, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.ICE},
 		'element': Element.WATER},
+	Monster.FINIETTE: {
+		'name': 'Finiette', 
+		'battle texture': "res://graphics/battle sprites/Finiette.png",
+		'icon texture': "res://graphics/menu sprites/Finiette.png",
+		'stats': {'max hp': 11, 'max ep': 10, 'speed': 0.9},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.ICE},
+		'element': Element.WATER},
+	Monster.PLUMETTE: {
+		'name': 'Plumette', 
+		'battle texture': "res://graphics/battle sprites/Plumette.png",
+		'icon texture': "res://graphics/menu sprites/Plumette.png",
+		'stats': {'max hp': 6, 'max ep': 7, 'speed': 0.6},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.ICE},
+		'element': Element.PLANT},
+	Monster.IVIERON: {
+		'name': 'Ivieron', 
+		'battle texture': "res://graphics/battle sprites/Ivieron.png",
+		'icon texture': "res://graphics/menu sprites/Ivieron.png",
+		'stats': {'max hp': 8, 'max ep': 8, 'speed': 0.9},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'element': Element.PLANT},
+	Monster.PLUMA: {
+		'name': 'Pluma', 
+		'battle texture': "res://graphics/battle sprites/Pluma.png",
+		'icon texture': "res://graphics/menu sprites/Pluma.png",
+		'stats': {'max hp': 12, 'max ep': 9, 'speed': 1.1},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'element': Element.PLANT},
+	Monster.LARVEA: {
+		'name': 'Larvea', 
+		'battle texture': "res://graphics/battle sprites/Larvea.png",
+		'icon texture': "res://graphics/menu sprites/Larvea.png",
+		'stats': {'max hp': 6, 'max ep': 7, 'speed': 0.6},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'element': Element.PLANT},
+	Monster.CLEAF: {
+		'name': 'Cleaf', 
+		'battle texture': "res://graphics/battle sprites/Cleaf.png",
+		'icon texture': "res://graphics/menu sprites/Cleaf.png",
+		'stats': {'max hp': 9, 'max ep': 8, 'speed': 2},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'element': Element.PLANT},
+	Monster.DRAEM: {
+		'name': 'Draem', 
+		'battle texture': "res://graphics/battle sprites/Draem.png",
+		'icon texture': "res://graphics/menu sprites/Draem.png",
+		'stats': {'max hp': 12, 'max ep': 9, 'speed': 1.1},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'element': Element.PLANT},
+	Monster.POUCH: {
+		'name': 'Pouch', 
+		'battle texture': "res://graphics/battle sprites/Pouch.png",
+		'icon texture': "res://graphics/menu sprites/Pouch.png",
+		'stats': {'max hp': 14, 'max ep': 3, 'speed': 0.5},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.EXPLOSION},
+		'element': Element.PLANT},
 	Monster.ATROX: {
 		'name': 'Atrox', 
 		'battle texture': "res://graphics/battle sprites/Atrox.png",
@@ -85,15 +156,20 @@ const monster_data = {
 		'stats': {'max hp': 12, 'max ep': 8, 'speed': 2},
 		'attacks': {0: Attack.CLAW, 12: Attack.FIRE, 24: Attack.HEAL, 30: Attack.EXPLOSION},
 		'element': Element.FIRE,},
+	Monster.FRIOLERA: {
+		'name': 'Friolera', 
+		'battle texture': "res://graphics/battle sprites/Friolera.png",
+		'icon texture': "res://graphics/menu sprites/Friolera.png",
+		'stats': {'max hp': 11, 'max ep': 10, 'speed': 0.9},
+		'attacks': {0: Attack.CLAW, 12: Attack.WATER, 24: Attack.HEAL, 30: Attack.ICE},
+		'element': Element.WATER},
 	Monster.JACANA: {
 		'name': 'Jacana', 
 		'battle texture': "res://graphics/battle sprites/Jacana.png",
 		'icon texture': "res://graphics/menu sprites/Jacana.png",
-		'stats': {'max hp': 3,'max ep': 0.4, 'speed': 4},
+		'stats': {'max hp': 3,'max ep': 5, 'speed': 4},
 		'attacks': {0: Attack.CLAW, 12: Attack.FIRE, 24: Attack.HEAL, 30: Attack.EXPLOSION},
-		'element': Element.FIRE},
-	
-	
+		'element': Element.FIRE}
 	}
 const attack_data = {
 	Attack.CLAW:  {
@@ -143,8 +219,30 @@ const attack_data = {
 		'amount': -30, 
 		'element': Element.PLANT,
 		'texture': "res://graphics/attack effects/attack6.png",
-		'sound': "res://audio/green.wav"}}
+		'sound': "res://audio/green.wav"}
+	}
 const element_modifier = {
 	Element.FIRE: {Element.FIRE: 1, Element.WATER: 0.5, Element.PLANT: 2},
 	Element.WATER: {Element.FIRE: 2, Element.WATER: 1, Element.PLANT: 0.5},
-	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}}
+	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}
+	}
+
+var current_biome: Biome = Biome.GRASS
+var player_monsters: Array[MonsterResource] = [
+				new_monster_res(Monster.ATROX, 20),
+				new_monster_res(Monster.SPARCHU, 13),
+				new_monster_res(Monster.CLEAF, 22),
+				new_monster_res(Monster.DRAEM, 22),
+				]
+var enemy_monsters: Array[MonsterResource] = [
+				new_monster_res(Monster.JACANA, 10),
+				new_monster_res(Monster.FINIETTE, 19),
+				new_monster_res(Monster.LARVEA, 5),
+				new_monster_res(Monster.FRIOLERA, 25),
+				]
+var trainer_fight: bool = false
+
+func new_monster_res(id: Monster, level: int) -> MonsterResource:
+	var monster_res := MonsterResource.new()
+	monster_res.setup(id, level)
+	return monster_res

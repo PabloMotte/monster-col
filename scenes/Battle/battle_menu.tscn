@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://b0i405bjg2jaq"]
+
+[ext_resource type="PackedScene" uid="uid://d1x0367w1dna" path="res://scenes/Battle/battle_main_button.tscn" id="1_ap5s2"]
+[ext_resource type="Script" uid="uid://f7dokk4yf7br" path="res://scenes/Battle/battle_menu.gd" id="1_qha83"]
+[ext_resource type="Texture2D" uid="uid://cllxlkbm6ioqj" path="res://graphics/UI/options2.png" id="2_qha83"]
+[ext_resource type="Texture2D" uid="uid://x1a5sl6evvjw" path="res://graphics/UI/options6.png" id="3_sg3dm"]
+[ext_resource type="Texture2D" uid="uid://cudw735jh1fm1" path="res://graphics/UI/options3.png" id="4_52syf"]
+[ext_resource type="Texture2D" uid="uid://bhmolsn16q8dp" path="res://graphics/UI/options7.png" id="5_ny566"]
+[ext_resource type="Texture2D" uid="uid://cwrp5cpdxakaq" path="res://graphics/UI/options4.png" id="6_tuf1k"]
+[ext_resource type="Texture2D" uid="uid://ilhrjtay5f2u" path="res://graphics/UI/options8.png" id="7_amj0v"]
+[ext_resource type="PackedScene" uid="uid://d1r6kb431bi0y" path="res://scenes/Battle/battle_attack_button.tscn" id="9_sg3dm"]
+
+[node name="BattleMenu" type="Control" unique_id=137701470]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qha83")
+
+[node name="MainSelection" type="Control" parent="." unique_id=1910857639]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Attack" parent="MainSelection" unique_id=607379778 instance=ExtResource("1_ap5s2")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="Defend" parent="MainSelection" unique_id=1254770350 instance=ExtResource("1_ap5s2")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+texture_normal = ExtResource("2_qha83")
+texture_pressed = ExtResource("3_sg3dm")
+texture_hover = ExtResource("3_sg3dm")
+texture_focused = ExtResource("3_sg3dm")
+
+[node name="Swap" parent="MainSelection" unique_id=1419373127 instance=ExtResource("1_ap5s2")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+texture_normal = ExtResource("4_52syf")
+texture_pressed = ExtResource("5_ny566")
+texture_hover = ExtResource("5_ny566")
+texture_focused = ExtResource("5_ny566")
+
+[node name="Catch" parent="MainSelection" unique_id=1592038284 instance=ExtResource("1_ap5s2")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+texture_normal = ExtResource("6_tuf1k")
+texture_pressed = ExtResource("7_amj0v")
+texture_hover = ExtResource("7_amj0v")
+texture_focused = ExtResource("7_amj0v")
+
+[node name="AttackButtonContainer" type="GridContainer" parent="." unique_id=11616200]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -33.0
+offset_right = 120.0
+offset_bottom = 33.0
+grow_vertical = 2
+columns = 2
+
+[node name="BattleAttackButton" parent="AttackButtonContainer" unique_id=1269586807 instance=ExtResource("9_sg3dm")]
+layout_mode = 2
+
+[node name="BattleAttackButton2" parent="AttackButtonContainer" unique_id=1030692804 instance=ExtResource("9_sg3dm")]
+layout_mode = 2
+
+[node name="BattleAttackButton3" parent="AttackButtonContainer" unique_id=703146484 instance=ExtResource("9_sg3dm")]
+layout_mode = 2
+
+[node name="BattleAttackButton4" parent="AttackButtonContainer" unique_id=2120129695 instance=ExtResource("9_sg3dm")]
+layout_mode = 2
