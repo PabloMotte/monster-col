@@ -175,7 +175,7 @@ const attack_data = {
 	Attack.CLAW:  {
 		'name': 'Claw', 
 		'offensive': true, 
-		'cost': 10, 
+		'cost': 5, 
 		'amount': 10, 
 		'element': Element.PLANT,
 		'texture': "res://graphics/attack effects/attack7.png",
@@ -231,8 +231,11 @@ var current_biome: Biome = Biome.GRASS
 var player_monsters: Array[MonsterResource] = [
 				new_monster_res(Monster.ATROX, 20),
 				new_monster_res(Monster.SPARCHU, 13),
-				new_monster_res(Monster.CLEAF, 22),
+				new_monster_res(Monster.CLEAF, 24),
 				new_monster_res(Monster.DRAEM, 22),
+				new_monster_res(Monster.POUCH, 24),
+				new_monster_res(Monster.PLUMA, 12),
+				new_monster_res(Monster.IVIERON, 54),
 				]
 var enemy_monsters: Array[MonsterResource] = [
 				new_monster_res(Monster.JACANA, 10),

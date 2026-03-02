@@ -110,3 +110,38 @@ layout_mode = 2
 
 [node name="BattleAttackButton4" parent="AttackButtonContainer" unique_id=2120129695 instance=ExtResource("9_sg3dm")]
 layout_mode = 2
+
+[node name="SwapContainer" type="PanelContainer" parent="." unique_id=2024015930]
+custom_minimum_size = Vector2(90, 100)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -50.0
+offset_right = 90.0
+offset_bottom = 50.0
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SwapContainer" unique_id=90064246]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 3
+scroll_hint_mode = 1
+tile_scroll_hint = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SwapContainer/ScrollContainer" unique_id=528089554]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Support" type="Control" parent="." unique_id=1984215116]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StopTimer" type="Timer" parent="Support" unique_id=113826079]
+wait_time = 0.2
+one_shot = true

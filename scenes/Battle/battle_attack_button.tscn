@@ -1,9 +1,52 @@
 [gd_scene format=3 uid="uid://d1r6kb431bi0y"]
 
 [ext_resource type="Script" uid="uid://bg1nk2ld55uvb" path="res://scenes/Battle/battle_attack_button.gd" id="1_4pdjr"]
+[ext_resource type="Texture2D" uid="uid://bpaldv62k725s" path="res://graphics/UI/frame.png" id="2_iewm2"]
+[ext_resource type="Texture2D" uid="uid://cl8g3548wty3b" path="res://graphics/UI/frame_selected.png" id="3_xrpcb"]
+[ext_resource type="Texture2D" uid="uid://5xaoso8mvh3b" path="res://graphics/UI/frame_disabled.png" id="4_g5tly"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_twd4f"]
+texture = ExtResource("2_iewm2")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk87m"]
+texture = ExtResource("3_xrpcb")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ixpro"]
+texture = ExtResource("4_g5tly")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3v4ry"]
+texture = ExtResource("3_xrpcb")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [node name="BattleAttackButton" type="Button" unique_id=1269586807]
 offset_right = 8.0
 offset_bottom = 8.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0.2509804, 0.2509804, 0.2509804, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.25275356, 0.25275356, 0.25275356, 1)
+theme_override_colors/icon_focus_color = Color(0.015686275, 0.015686275, 0.015686275, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxTexture_twd4f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_jk87m")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ixpro")
+theme_override_styles/focus = SubResource("StyleBoxTexture_3v4ry")
 text = "Attack"
 script = ExtResource("1_4pdjr")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://cyqsyl6yp7fnn" path="res://graphics/battle sprites/Atrox.png" id="1_br5ip"]
 [ext_resource type="Script" uid="uid://b5i85pr5tnrf4" path="res://scenes/Battle/battle_sprite.gd" id="2_p0lrl"]
 [ext_resource type="Texture2D" uid="uid://cuiv500vdnptd" path="res://graphics/UI/vbar.png" id="3_dhegi"]
+[ext_resource type="Texture2D" uid="uid://bpaldv62k725s" path="res://graphics/UI/frame.png" id="3_r1uls"]
+[ext_resource type="Texture2D" uid="uid://c3kse3505bb3w" path="res://graphics/UI/h_bar.png" id="4_2fr1i"]
+[ext_resource type="Texture2D" uid="uid://oudfxo8fgcly" path="res://graphics/UI/hbar_inner.png" id="5_r1uls"]
 
 [sub_resource type="Animation" id="Animation_p0lrl"]
 resource_name = "Attack"
@@ -59,6 +62,14 @@ _data = {
 &"RESET": SubResource("Animation_88wqi")
 }
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q3v6o"]
+texture = ExtResource("3_r1uls")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+modulate_color = Color(1, 1, 1, 0.76862746)
+
 [node name="BattleSprite" type="Sprite2D" unique_id=1829696059 groups=["BattleSprites"]]
 texture = ExtResource("1_br5ip")
 hframes = 4
@@ -100,6 +111,8 @@ theme_override_constants/margin_bottom = 2
 
 [node name="Label" type="Label" parent="Control/NameContainer/MarginContainer" unique_id=994195865]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.2509804, 0.2509804, 0.2509804, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_q3v6o")
 text = "~name"
 
 [node name="ReadyProgressBar" type="TextureProgressBar" parent="Control" unique_id=1632316870]
@@ -114,5 +127,39 @@ texture_under = ExtResource("3_dhegi")
 texture_progress = ExtResource("3_dhegi")
 tint_under = Color(0.12156863, 0.12156863, 0.12156863, 1)
 tint_progress = Color(1, 1, 0.41568628, 1)
+
+[node name="StatsContainers" type="VBoxContainer" parent="Control" unique_id=152095715]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="HealthBar" type="TextureProgressBar" parent="Control/StatsContainers" unique_id=1756838626]
+layout_mode = 2
+texture_under = ExtResource("4_2fr1i")
+texture_progress = ExtResource("5_r1uls")
+tint_under = Color(0.16862746, 0.16862746, 0.16862746, 1)
+tint_progress = Color(1, 0.21960784, 0.21960784, 1)
+
+[node name="Control" type="Control" parent="Control/StatsContainers" unique_id=43483013]
+custom_minimum_size = Vector2(0, 6)
+layout_mode = 2
+
+[node name="EnergyBar" type="TextureProgressBar" parent="Control/StatsContainers/Control" unique_id=867372307]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 4.0
+offset_right = 60.0
+offset_bottom = 5.0
+texture_under = ExtResource("4_2fr1i")
+texture_progress = ExtResource("5_r1uls")
+tint_under = Color(0.16862746, 0.16862746, 0.16862746, 1)
+tint_progress = Color(0.21960784, 0.8039216, 1, 1)
 
 [connection signal="value_changed" from="Control/ReadyProgressBar" to="." method="_on_ready_progress_bar_value_changed"]

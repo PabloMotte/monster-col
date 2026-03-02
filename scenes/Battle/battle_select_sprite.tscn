@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://djbhy8ncsx280"]
+
+[ext_resource type="Texture2D" uid="uid://cr2s5pjt21edh" path="res://graphics/UI/options5.png" id="1_lw600"]
+[ext_resource type="Script" uid="uid://brda0lsji4ic0" path="res://scenes/Battle/battle_select_sprite.gd" id="2_nqyd4"]
+
+[node name="BattleSelectSprite" type="Sprite2D" unique_id=1185058511]
+texture = ExtResource("1_lw600")
+script = ExtResource("2_nqyd4")

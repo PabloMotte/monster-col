@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://ckr0isu4oe6rb" path="res://graphics/backgrounds/background1.png" id="1_ha178"]
 [ext_resource type="Script" uid="uid://ca5clqnojwa7c" path="res://scenes/Battle/battle.gd" id="1_mpo2y"]
 [ext_resource type="PackedScene" uid="uid://b0i405bjg2jaq" path="res://scenes/Battle/battle_menu.tscn" id="3_jl7sv"]
+[ext_resource type="PackedScene" uid="uid://djbhy8ncsx280" path="res://scenes/Battle/battle_select_sprite.tscn" id="4_ipv8b"]
+[ext_resource type="Script" uid="uid://badcamxanm5jo" path="res://scenes/Battle/battle_attack_sprite.gd" id="5_7th52"]
+[ext_resource type="Texture2D" uid="uid://de5qrtp25tftm" path="res://graphics/attack effects/attack1.png" id="5_l7oxf"]
 
 [node name="Battle" type="Node2D" unique_id=1318687868]
 script = ExtResource("1_mpo2y")
@@ -23,7 +26,7 @@ zoom = Vector2(3, 3)
 position = Vector2(-225, -25)
 
 [node name="Marker2D2" type="Marker2D" parent="StartPositions/Player" unique_id=130345190]
-position = Vector2(-150, 50)
+position = Vector2(-120, 50)
 
 [node name="Marker2D3" type="Marker2D" parent="StartPositions/Player" unique_id=51228122]
 position = Vector2(-225, 125)
@@ -34,7 +37,7 @@ position = Vector2(-225, 125)
 position = Vector2(225, -25)
 
 [node name="Marker2D2" type="Marker2D" parent="StartPositions/Enemy" unique_id=1574168396]
-position = Vector2(150, 50)
+position = Vector2(120, 50)
 
 [node name="Marker2D3" type="Marker2D" parent="StartPositions/Enemy" unique_id=826837290]
 position = Vector2(225, 125)
@@ -47,4 +50,19 @@ position = Vector2(225, 125)
 
 [node name="BattleMenu" parent="." unique_id=137701470 instance=ExtResource("3_jl7sv")]
 
+[node name="EffectSprites" type="Node2D" parent="." unique_id=1860148515]
+
+[node name="BattleSelectSprite" parent="EffectSprites" unique_id=1185058511 instance=ExtResource("4_ipv8b")]
+visible = false
+
+[node name="BattleAttackSprite" type="Sprite2D" parent="EffectSprites" unique_id=735650189]
+visible = false
+texture = ExtResource("5_l7oxf")
+hframes = 4
+script = ExtResource("5_7th52")
+
 [connection signal="defend" from="BattleMenu" to="." method="_on_battle_menu_defend"]
+[connection signal="select" from="BattleMenu" to="." method="_on_battle_menu_select"]
+[connection signal="swap" from="BattleMenu" to="." method="_on_battle_menu_swap"]
+[connection signal="cancel" from="EffectSprites/BattleSelectSprite" to="." method="_on_battle_select_sprite_cancel"]
+[connection signal="use" from="EffectSprites/BattleSelectSprite" to="." method="_on_battle_select_sprite_use"]

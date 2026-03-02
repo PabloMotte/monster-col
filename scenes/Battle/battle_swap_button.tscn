@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://cebffgmhrm6j5"]
+
+[ext_resource type="Texture2D" uid="uid://bpaldv62k725s" path="res://graphics/UI/frame.png" id="1_i47gr"]
+[ext_resource type="Texture2D" uid="uid://dvqa4eu0mbmub" path="res://graphics/menu sprites/Atrox.png" id="1_iugto"]
+[ext_resource type="Script" uid="uid://b3a8syela3qqf" path="res://scenes/Battle/battle_swap_button.gd" id="1_kg3uk"]
+[ext_resource type="Texture2D" uid="uid://cl8g3548wty3b" path="res://graphics/UI/frame_selected.png" id="2_g57rg"]
+[ext_resource type="Texture2D" uid="uid://5xaoso8mvh3b" path="res://graphics/UI/frame_disabled.png" id="3_0uxwd"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mx7q2"]
+texture = ExtResource("1_i47gr")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1snfu"]
+texture = ExtResource("2_g57rg")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n5sr4"]
+texture = ExtResource("2_g57rg")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_avvwo"]
+texture = ExtResource("3_0uxwd")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i47gr"]
+texture = ExtResource("2_g57rg")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[node name="BattleSwapButton" type="Button" unique_id=1875600925]
+custom_minimum_size = Vector2(0, 30)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_disabled_color = Color(0.2509804, 0.2509804, 0.2509804, 1)
+theme_override_styles/normal = SubResource("StyleBoxTexture_mx7q2")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1snfu")
+theme_override_styles/hover = SubResource("StyleBoxTexture_n5sr4")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_avvwo")
+theme_override_styles/focus = SubResource("StyleBoxTexture_i47gr")
+script = ExtResource("1_kg3uk")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=39125877]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="HBoxContainer" unique_id=1329562733]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer" unique_id=1758211411]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("1_iugto")
+stretch_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=2115590056]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Monster"
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
