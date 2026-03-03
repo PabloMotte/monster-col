@@ -18,5 +18,9 @@ func _change_scene(target_loc: Data.Location, current_loc: Data.Location):
 	var scene = load(Data.LEVEL_PATHS[target_loc]).instantiate()
 	get_tree().root.add_child(scene)
 	get_tree().current_scene = scene
-	scene.player_start_position(current_loc)
-	Data.current_loc = target_loc
+	if target_loc != Data.Location.BATTLE:
+		scene.player_start_position(current_loc)
+		Data.current_loc = target_loc
+	if current_loc == Data.Location.BATTLE:
+		prints(Data.current_pos, Data.current_face_dir)
+		scene.place_player_post_battle(Data.current_pos, Data.current_face_dir)

@@ -7,7 +7,7 @@ var playable: bool = false
 var index: int
 
 signal is_ready(battle_sprite: Sprite2D)
-signal death(is_player: bool, index: int)
+signal death(is_player: bool, index: int, res: MonsterResource)
 
 # TODO : for the future
 # var ready : bool = true # in setup set this to false if battle is a surprise, and set ReadyProgressBar to 100 if ready else 0
@@ -27,6 +27,7 @@ func setup(pos: Vector2, is_player: bool, res: MonsterResource, new_index: int) 
 	flip_h = is_player
 	playable = is_player
 	monster_res = res
+	monster_res.connect("level_up", ui_setup)
 	index = new_index
 	texture = load(Data.monster_data[monster_res.id]['battle texture'])
 	ui_setup()
@@ -38,6 +39,9 @@ func ui_setup() -> void:
 	$Control/StatsContainers/HealthBar.value = monster_res.current_hp
 	$Control/StatsContainers/Control/EnergyBar.max_value = monster_res.get_stat("max ep")
 	$Control/StatsContainers/Control/EnergyBar.value = monster_res.current_ep
+	$Control/LevelContainer/Label.text = "%d" % monster_res.level
+	$Control/LevelContainer/TextureProgressBar.max_value = monster_res.level * Data.LEVEL_XP_MULT
+	$Control/LevelContainer/TextureProgressBar.value = monster_res.current_xp
 
 func attack_animation() -> void:
 	$AnimationPlayer.play("Attack")
@@ -64,8 +68,12 @@ func change(res: MonsterResource) -> void:
 
 func check_death() -> void:
 	if monster_res.current_hp <= 0:
-		death.emit(playable, index)
+		death.emit(playable, index, monster_res)
 		queue_free()
+
+func add_xp(amount: int) -> void:
+	monster_res.current_xp += amount
+	$Control/LevelContainer/TextureProgressBar.value = monster_res.current_xp
 
 func _on_ready_progress_bar_value_changed(value: float) -> void:
 	if value >= 100:

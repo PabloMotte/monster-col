@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ba0oi3js3pdim"]
+[gd_scene format=3 uid="uid://ba0oi3js3pdim"]
 
 [ext_resource type="PackedScene" uid="uid://cxv4csgbp3pwc" path="res://scenes/characters/character.tscn" id="1_nlber"]
 [ext_resource type="Script" uid="uid://ch2pcgnd1mviv" path="res://scenes/characters/trainer.gd" id="2_7ugo5"]
 [ext_resource type="PackedScene" uid="uid://cv63lfjtpnaqy" path="res://scenes/characters/dialog_box.tscn" id="3_7apfp"]
+[ext_resource type="Script" uid="uid://cq60k5sf0cjq6" path="res://resources/monster_res.gd" id="3_hdxyo"]
 
-[node name="Trainer" groups=["Trainers"] instance=ExtResource("1_nlber")]
+[sub_resource type="Resource" id="Resource_nqakf"]
+script = ExtResource("3_hdxyo")
+level = 1
+metadata/_custom_type_script = "uid://cq60k5sf0cjq6"
+
+[node name="Trainer" unique_id=1822759128 groups=["Trainers"] instance=ExtResource("1_nlber")]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_7ugo5")
@@ -12,21 +18,22 @@ stop_radius = 24
 look_around = true
 dialog = Array[String]([])
 defeat_dialog = Array[String]([])
+monsters = Array[ExtResource("3_hdxyo")]([SubResource("Resource_nqakf")])
 
-[node name="Timers" type="Node" parent="." index="2"]
+[node name="Timers" type="Node" parent="." index="2" unique_id=896198288]
 
-[node name="WatchTimer" type="Timer" parent="Timers" index="0"]
+[node name="WatchTimer" type="Timer" parent="Timers" index="0" unique_id=1797624965]
 wait_time = 4.0
 autostart = true
 
-[node name="WalkWaitTimer" type="Timer" parent="Timers" index="1"]
+[node name="WalkWaitTimer" type="Timer" parent="Timers" index="1" unique_id=2098881927]
 wait_time = 0.5
 one_shot = true
 
 [node name="RayCast2D" parent="." index="3"]
 collision_mask = 2
 
-[node name="DialogBox" parent="." index="4" instance=ExtResource("3_7apfp")]
+[node name="DialogBox" parent="." index="4" unique_id=1317292976 instance=ExtResource("3_7apfp")]
 visible = false
 z_index = 2
 offset_bottom = -50.0

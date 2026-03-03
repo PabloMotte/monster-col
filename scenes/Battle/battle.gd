@@ -43,7 +43,7 @@ func monster_ready(battle_sprite: Sprite2D) -> void:
 			perform_attack(-1, attack)
 		battle_continue()
 
-func monster_death(is_player: bool, index: int) -> void:
+func monster_death(is_player: bool, index: int, monster_res: MonsterResource) -> void:
 	var reserve_list = player_reserve_monsters if is_player else enemy_reserve_monsters
 	var start_positions = $StartPositions/Player if is_player else $StartPositions/Enemy
 	var pos = start_positions.get_child(index).position
@@ -55,7 +55,12 @@ func monster_death(is_player: bool, index: int) -> void:
 		finish_battle(false)
 	if enemy_reserve_monsters.size() == 0 and $BattleSprites/Enemy.get_child_count() == 1:
 		finish_battle(true)
-		
+	
+	if not is_player:
+		var xp_amount :float = monster_res.level / $BattleSprites/Player.get_child_count()
+		for battle_sprite in $BattleSprites/Player.get_children():
+			battle_sprite.add_xp(int(xp_amount))
+	
 func perform_attack(index: int, info: Data.Attack) -> void:
 	var offensive : bool = Data.attack_data[info]['offensive']
 	var target_group = $BattleSprites/Enemy if (offensive and index >= 0) or (!offensive and index < 0) \
@@ -82,6 +87,11 @@ func finish_battle(player_won: bool) -> void:
 	else:
 		print("You lost! Game over.")
 		get_tree().quit()
+	var monster_array: Array[MonsterResource]
+	for battle_sprite in $BattleSprites/Player.get_children():
+		monster_array.append(battle_sprite.monster_res)
+	Data.player_monsters = monster_array + player_reserve_monsters
+	TransitionLayer.transition(Data.current_loc, Data.Location.BATTLE)
 
 func battle_continue() -> void:
 	await get_tree().create_timer(0.5).timeout

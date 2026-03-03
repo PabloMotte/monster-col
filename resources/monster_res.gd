@@ -4,13 +4,25 @@ class_name MonsterResource extends Resource
 @export var level: int
 var current_hp: float
 var current_ep: float
-var current_xp: int
+var current_xp: int:
+	set(new_value):
+		current_xp = new_value
+		if current_xp >= (level * Data.LEVEL_XP_MULT):
+			current_xp -= (level * Data.LEVEL_XP_MULT)
+			level += 1
+			level_up.emit()
+
+signal level_up()
 
 func setup(new_id: Data.Monster, new_level: int) -> void:
 	id = new_id
 	level = new_level
+	initialise()
+
+func initialise() -> void:
 	current_hp = get_stat('max hp')
 	current_ep = get_stat('max ep')
+	current_xp = 0
 	
 func get_attribute(attribute: String) -> Variant:
 	return Data.monster_data[id][attribute]

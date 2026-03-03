@@ -26,3 +26,9 @@ view_distance = 20
 y_sort_enabled = true
 
 [node name="TransitionGates" type="Node2D" parent="." unique_id=2099841984]
+
+[node name="Timers" type="Node2D" parent="." unique_id=1749221308]
+
+[node name="EncounterTimer" type="Timer" parent="Timers" unique_id=889570782]
+wait_time = 5.0
+one_shot = true

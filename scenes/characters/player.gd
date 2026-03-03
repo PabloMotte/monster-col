@@ -34,7 +34,7 @@ func update_view_direction():
 	if direction:
 		var y = round(direction.y) if direction.x == 0 else 0
 		view_direction = Vector2i(round(direction.x),y)
-		$RayCast2D.target_position = view_direction * view_distance
+		update_raycast(view_direction)
 
 
 func check_interactable():

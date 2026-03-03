@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dhhfmxyrvp0r2"]
+
+[ext_resource type="Texture2D" uid="uid://bsow1yhgnfilu" path="res://graphics/tileset/tileset.png" id="1_a244e"]
+
+[node name="GrassCover" type="Node2D" unique_id=1417536140]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=405617083]
+position = Vector2(0, 8)
+texture = ExtResource("1_a244e")
+region_enabled = true
+region_rect = Rect2(96, 8, 16, 8)

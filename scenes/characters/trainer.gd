@@ -5,6 +5,7 @@ var _player: Character
 @export var look_around := true
 @export var dialog: Array[String]
 @export var defeat_dialog: Array[String]
+@export var monsters : Array[MonsterResource]
 var dialog_index: int
 var defeated := false:
 	set(newValue):
@@ -29,9 +30,16 @@ func _enter_tree() -> void:
 		_save_trainer()
 	else:
 		defeated = Data.char_data[unique_id]['defeated']
+		monsters = Data.char_data[unique_id]['monsters']
+		
+func post_ready() -> void:
+	if monsters.size():
+		for monster : MonsterResource in monsters:
+			monster.initialise()
 
 func _save_trainer() -> void:
-	Data.char_data[unique_id] = {'defeated': defeated}
+	Data.char_data[unique_id] = {'defeated': defeated,
+								'monsters': monsters}
 
 func get_unique_id() -> String:
 	var current_scene_name = get_owner().scene_file_path.get_file().get_basename()
@@ -56,9 +64,7 @@ func _process(delta: float) -> void:
 func _on_watch_timer_timeout() -> void:
 	if look_around:
 		view_direction = [Vector2i.LEFT, Vector2i.RIGHT, Vector2i.UP, Vector2i.DOWN].pick_random()
-		$Sprite2D.frame_coords.y = Data.character_view_directions[view_direction]
-		$RayCast2D.target_position = view_direction * view_distance
-
+		change_view(view_direction)
 
 func _on_walk_wait_timer_timeout() -> void:
 	direction = get_char_direction(get_player())
@@ -76,6 +82,15 @@ func advance_dialog():
 		show_dialog()
 	else:
 		$DialogBox.hide()
-		print('Battle!!')
-		Data.current_char = null
+		if defeated:
+			get_player().can_move = true
+		else:
+			print('Battle!! Player vs. %s' % name)
+			Data.current_pos = get_player().position
+			Data.current_face_dir = get_player().view_direction
+			Data.enemy_monsters = monsters.duplicate(true)
+			Data.trainer_fight = true
+			TransitionLayer.transition(Data.Location.BATTLE, Data.current_loc)
+			Data.char_data[unique_id]['defeated'] = true
 		dialog_index = 0
+		Data.current_char = null

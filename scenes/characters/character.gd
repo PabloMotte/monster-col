@@ -10,7 +10,10 @@ var can_move := true
 
 func _ready() -> void:
 	$Sprite2D.texture = load(Data.character_texture_data[char_style])
-
+	post_ready()
+	
+func post_ready() -> void:
+	pass
 
 func move():
 	velocity = direction * speed
@@ -20,7 +23,7 @@ func move():
 func animate(delta):
 	if direction:
 		var face_dir: Vector2i = Vector2i(round(direction.x),round(direction.y))
-		$Sprite2D.frame_coords.y = Data.character_view_directions[face_dir]
+		change_view(face_dir)
 		current_h_frame += Data.ANIMATION_SPEED * delta
 	else:
 		current_h_frame = 0
@@ -37,3 +40,7 @@ func get_char_direction(target_char) -> Vector2i:
 
 func change_view(target: Vector2i):
 	$Sprite2D.frame_coords.y = Data.character_view_directions[target]
+	update_raycast(target)
+
+func update_raycast(target: Vector2i) -> void:
+	$RayCast2D.target_position = target * view_distance

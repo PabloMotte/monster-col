@@ -2,7 +2,7 @@ extends Node
 
 # Overworld data
 enum CharacterStyle {CHARACTER, BLOND, PLAYER, GREEN, FIRE, GRASS, ICE, PURPLE, STRAW, BOY, GIRL}
-enum Location {OVERWORLD, HOUSE, HOSPITAL, GRASS_ARENA, FIRE_ARENA}
+enum Location {OVERWORLD, HOUSE, HOSPITAL, GRASS_ARENA, FIRE_ARENA, BATTLE}
 const ANIMATION_SPEED = 6
 const TILE_ANIMATION_SPEED = 2
 const character_view_directions = {
@@ -34,14 +34,15 @@ const LEVEL_PATHS = {
 	Location.HOUSE: "res://scenes/levels/house.tscn",
 	Location.HOSPITAL: "res://scenes/levels/hospital.tscn",
 	Location.GRASS_ARENA: "res://scenes/levels/plant_arena.tscn",
-	Location.FIRE_ARENA: "res://scenes/levels/fire_arena.tscn"
+	Location.FIRE_ARENA: "res://scenes/levels/fire_arena.tscn",
+	Location.BATTLE: "res://scenes/Battle/battle.tscn",
 	}
 
 var current_char: Character
 var current_loc: Data.Location
-var char_data = {
-	
-}
+var char_data = {}
+var current_pos : Vector2
+var current_face_dir : Vector2
 
 # Battle data
 enum Monster {SPARCHU, ATROX, JACANA, CINDRILL, 
@@ -226,6 +227,7 @@ const element_modifier = {
 	Element.WATER: {Element.FIRE: 2, Element.WATER: 1, Element.PLANT: 0.5},
 	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}
 	}
+const LEVEL_XP_MULT := 4
 
 var current_biome: Biome = Biome.GRASS
 var player_monsters: Array[MonsterResource] = [
