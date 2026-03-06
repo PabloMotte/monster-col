@@ -3,6 +3,17 @@
 [ext_resource type="PackedScene" uid="uid://dnivxfqhc2qgc" path="res://scenes/characters/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://bkq1j5l21liv7" path="res://scenes/levels/level.gd" id="1_urvlt"]
 [ext_resource type="TileSet" uid="uid://p3kyf4tnx8h6" path="res://scenes/levels/level_tileset.tres" id="2_b2cq8"]
+[ext_resource type="Texture2D" uid="uid://bsow1yhgnfilu" path="res://graphics/tileset/tileset.png" id="3_xb4v1"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_urvlt"]
+texture = ExtResource("3_xb4v1")
+6:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_d4w6o"]
+sources/0 = SubResource("TileSetAtlasSource_urvlt")
 
 [node name="Level" type="Node2D" unique_id=1721250500]
 script = ExtResource("1_urvlt")
@@ -11,6 +22,9 @@ script = ExtResource("1_urvlt")
 
 [node name="Floor" type="TileMapLayer" parent="BG" unique_id=109598970]
 tile_set = ExtResource("2_b2cq8")
+
+[node name="Grass" type="TileMapLayer" parent="BG" unique_id=1376005998]
+tile_set = SubResource("TileSet_d4w6o")
 
 [node name="Objects" type="Node2D" parent="." unique_id=455011478]
 y_sort_enabled = true
@@ -21,6 +35,7 @@ y_sort_enabled = true
 [node name="Player" parent="Objects/Characters" unique_id=637305885 instance=ExtResource("1_377w7")]
 char_style = 2
 view_distance = 20
+look_around = false
 
 [node name="SimpleObjects" type="Node2D" parent="Objects" unique_id=174387073]
 y_sort_enabled = true

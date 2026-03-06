@@ -92,32 +92,33 @@ func get_biome_monsters(current_biome : Data.Biome) -> Array[MonsterResource]:
 	# calculate average player monster level
 	var average_level: int = calculate_monster_average(Data.player_monsters)
 	# convert biome to element
-	match current_biome:
-		Data.Biome.DESERT:
-			required_element = Data.Element.FIRE
-		Data.Biome.ICE:
-			required_element = Data.Element.WATER
-		Data.Biome.GRASS:
-			required_element = Data.Element.PLANT
+	var element_conv = {
+		Data.Biome.DESERT: Data.Element.FIRE,
+		Data.Biome.ICE: Data.Element.WATER,
+		Data.Biome.GRASS: Data.Element.PLANT,		
+	}
+	required_element = element_conv[current_biome]
 	# find all monsters that could match the element required
 	for monster : Data.Monster in Data.Monster.values():
 		if Data.monster_data[monster]['element'] == required_element:
 			monster_selection.append(monster)
 	# select a few at random
 	for i in number_of_monsters:
-		# what level should this monster be? Try to skew random number towards the lower end of 5 to 50
+		# what level should this monster be? Try to skew random number towards the 
+		# player monster average level area of 5 to 50
 		var level : int = maxi(int(randfn(average_level, 5)), 0) + 4
 		var found_monster : MonsterResource = Data.new_monster_res(monster_selection.pick_random(), level)
 		monsters.append(found_monster)
 	return monsters
 
 func calculate_monster_average(monsters: Array[MonsterResource]) -> int:
-	var total_level: int
+	var total_level: float = 0.0
 	var avg: int = 5
 	if monsters.size() > 0:
 		for monster_res in monsters:
 			total_level += monster_res.level
-		avg = floori(total_level / monsters.size())
+		var avg_f : float = (total_level / monsters.size())
+		avg = floori(avg_f)
 	return avg
 	
 	

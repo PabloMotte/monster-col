@@ -48,4 +48,6 @@ func get_random_attack() -> Data.Attack:
 			available_attacks.append(attack)
 	return available_attacks.pick_random() if available_attacks.size() else null
 	
-	
+func heal() -> void:
+	current_hp = get_stat('max hp')
+	current_ep = get_stat('max ep')

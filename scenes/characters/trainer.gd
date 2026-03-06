@@ -1,38 +1,29 @@
 extends Character
 
-var _player: Character
 @export var stop_radius := 24
-@export var look_around := true
 @export var dialog: Array[String]
 @export var defeat_dialog: Array[String]
 @export var monsters : Array[MonsterResource]
-var dialog_index: int
 var defeated := false:
 	set(newValue):
 		defeated = newValue
 		_save_trainer()
-var unique_id: String
 
 func test_defeat():
 	defeated = true
 	
 
 
-func get_player():
-	if !_player:
-		_player = get_tree().get_first_node_in_group('Player')
-	return _player
-
-
 func _enter_tree() -> void:
-	unique_id = get_unique_id()
+	super._enter_tree()
 	if unique_id not in Data.char_data:
 		_save_trainer()
 	else:
 		defeated = Data.char_data[unique_id]['defeated']
 		monsters = Data.char_data[unique_id]['monsters']
 		
-func post_ready() -> void:
+func _ready() -> void:
+	super._ready()
 	if monsters.size():
 		for monster : MonsterResource in monsters:
 			monster.initialise()
@@ -40,11 +31,6 @@ func post_ready() -> void:
 func _save_trainer() -> void:
 	Data.char_data[unique_id] = {'defeated': defeated,
 								'monsters': monsters}
-
-func get_unique_id() -> String:
-	var current_scene_name = get_owner().scene_file_path.get_file().get_basename()
-	var node_name = name
-	return current_scene_name + "_" + node_name
 
 
 func _process(delta: float) -> void:

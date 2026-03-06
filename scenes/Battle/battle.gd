@@ -46,18 +46,19 @@ func monster_ready(battle_sprite: Sprite2D) -> void:
 func monster_death(is_player: bool, index: int, monster_res: MonsterResource) -> void:
 	var reserve_list = player_reserve_monsters if is_player else enemy_reserve_monsters
 	var start_positions = $StartPositions/Player if is_player else $StartPositions/Enemy
+	var player_monster_count : int = $BattleSprites/Player.get_child_count()
 	var pos = start_positions.get_child(index).position
 	var parent = $BattleSprites/Player if is_player else $BattleSprites/Enemy
 	if reserve_list.size():
 		create_battle_sprite(pos, parent, is_player, reserve_list.pop_at(0), index)
 	
-	if player_reserve_monsters.size() == 0 and $BattleSprites/Player.get_child_count() == 1:
+	if !is_player and player_reserve_monsters.size() <= 0 and player_monster_count <= 1:
 		finish_battle(false)
-	if enemy_reserve_monsters.size() == 0 and $BattleSprites/Enemy.get_child_count() == 1:
+	if is_player and enemy_reserve_monsters.size() <= 0 and $BattleSprites/Enemy.get_child_count() <= 1:
 		finish_battle(true)
 	
 	if not is_player:
-		var xp_amount :float = monster_res.level / $BattleSprites/Player.get_child_count()
+		var xp_amount : float = (monster_res.level * 1.0) / player_monster_count
 		for battle_sprite in $BattleSprites/Player.get_children():
 			battle_sprite.add_xp(int(xp_amount))
 	

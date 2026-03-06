@@ -5,13 +5,13 @@ func _ready() -> void:
 	
 	
 func transition(target_loc: Data.Location, current_loc: Data.Location):
+	$ColorRect.color = Color.BLACK
 	var tween = create_tween()
 	tween.tween_property($ColorRect, "modulate:a", 1.0, 0.8)
 	tween.tween_interval(0.5)
 	tween.tween_callback(_change_scene.bind(target_loc, current_loc))
 	tween.tween_property($ColorRect, "modulate:a", 0.0, 0.8)
 	
-
 func _change_scene(target_loc: Data.Location, current_loc: Data.Location):
 	if get_tree().current_scene:
 		get_tree().current_scene.queue_free()
@@ -24,3 +24,17 @@ func _change_scene(target_loc: Data.Location, current_loc: Data.Location):
 	if current_loc == Data.Location.BATTLE:
 		prints(Data.current_pos, Data.current_face_dir)
 		scene.place_player_post_battle(Data.current_pos, Data.current_face_dir)
+
+
+func white_screen(character: Character) -> void:
+	$ColorRect.color = Color.WHITE
+	var tween = create_tween()
+	tween.tween_property($ColorRect, "modulate:a", 1.0, 0.8)
+	tween.tween_interval(0.5)
+	tween.tween_callback(_heal_monsters.bind(character))
+	tween.tween_property($ColorRect, "modulate:a", 0.0, 0.8)
+
+func _heal_monsters(character: Character) -> void:
+	for monster in Data.player_monsters:
+		monster.heal()
+	character.finish_dialog()
