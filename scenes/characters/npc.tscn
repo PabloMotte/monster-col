@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://deba1um2bbwlq"]
+
+[ext_resource type="PackedScene" uid="uid://cxv4csgbp3pwc" path="res://scenes/characters/character.tscn" id="1_ceaqc"]
+[ext_resource type="Script" uid="uid://br3bfcr04yq8n" path="res://scenes/characters/npc.gd" id="2_84hc2"]
+[ext_resource type="PackedScene" uid="uid://cv63lfjtpnaqy" path="res://scenes/characters/dialog_box.tscn" id="3_bgitj"]
+
+[node name="NPC" unique_id=2081346331 instance=ExtResource("1_ceaqc")]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_84hc2")
+dialog = Array[String]([])
+fin_dialog = Array[String]([])
+
+[node name="DialogBox" parent="." index="3" unique_id=1237300001 instance=ExtResource("3_bgitj")]
+visible = false
+z_index = 2
+anchors_preset = -1
+offset_bottom = -43.0

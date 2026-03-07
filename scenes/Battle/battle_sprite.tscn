@@ -162,7 +162,7 @@ offset_bottom = 5.0
 texture_under = ExtResource("4_2fr1i")
 texture_progress = ExtResource("5_r1uls")
 tint_under = Color(0.16862746, 0.16862746, 0.16862746, 1)
-tint_progress = Color(0.21960784, 0.8039216, 1, 1)
+tint_progress = Color(0.21568628, 0.8039216, 1, 1)
 
 [node name="LevelContainer" type="PanelContainer" parent="Control" unique_id=696511000]
 custom_minimum_size = Vector2(20, 20)

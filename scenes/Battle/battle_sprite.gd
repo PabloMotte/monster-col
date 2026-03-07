@@ -19,8 +19,8 @@ func _process(delta: float) -> void:
 		# progress bar loses the float values with small increments, so store the float elsewhere and just assign
 		readiness += monster_res.get_stat('speed') * delta
 		$Control/ReadyProgressBar.value = readiness
-		#change_energy(monster_res.get_stat('max ep') * monster_res.get_stat('speed') * delta * 0.05)
-		change_energy(monster_res.get_stat('max ep') * delta * 0.01)
+		change_energy(monster_res.get_stat('max ep') * monster_res.get_stat('speed') * delta * 0.05 * monster_res.level_mod())
+		#change_energy(mo0nster_res.get_stat('max ep') * delta * 0.01)
 
 func setup(pos: Vector2, is_player: bool, res: MonsterResource, new_index: int) -> void:
 	position = pos
@@ -37,8 +37,10 @@ func ui_setup() -> void:
 	$Control/ReadyProgressBar.value = 0.0
 	$Control/StatsContainers/HealthBar.max_value = monster_res.get_stat("max hp")
 	$Control/StatsContainers/HealthBar.value = monster_res.current_hp
+	$Control/StatsContainers/HealthBar.set_tint_progress(monster_res.HEALTH_COLOUR)
 	$Control/StatsContainers/Control/EnergyBar.max_value = monster_res.get_stat("max ep")
 	$Control/StatsContainers/Control/EnergyBar.value = monster_res.current_ep
+	$Control/StatsContainers/Control/EnergyBar.set_tint_progress(monster_res.ENERGY_COLOUR)
 	$Control/LevelContainer/Label.text = "%d" % monster_res.level
 	$Control/LevelContainer/TextureProgressBar.max_value = monster_res.level * Data.LEVEL_XP_MULT
 	$Control/LevelContainer/TextureProgressBar.value = monster_res.current_xp
@@ -48,18 +50,34 @@ func attack_animation() -> void:
 	await $AnimationPlayer.animation_finished
 	$AnimationPlayer.play("Idle")
 
-func change_health(amount: float, element: Data.Element) -> void:
+func change_health(amount: float, element: Data.Element) -> float:
+	# attack damage modified by receiving monster level if that monster is defending
+	var defense: float = (monster_res.level_mod() if monster_res.is_defending else 1.0)
+	# damage modified by attacking/receiving monster element types (fire > plant > water > fire > ...)
 	var modifier: float = Data.element_modifier[element][monster_res.get_element()]
-	monster_res.current_hp -= (amount * modifier)
+	var modified_amount : float = amount * (modifier / defense)
+	# healing not modified by receiving monster for any reason
+	monster_res.current_hp -= (modified_amount if amount >= 0 else amount)
+	# animate the health bar
 	var tween = create_tween()
 	tween.tween_property($Control/StatsContainers/HealthBar, "value", monster_res.current_hp, 0.5)
 	tween.tween_callback(check_death)
+	# Colour the health bar differently if it is low
+	if monster_res.current_hp <= monster_res.get_low_hp():
+		$Control/StatsContainers/HealthBar.set_tint_progress(monster_res.HEALTH_LOW_COLOUR)
+	else:
+		$Control/StatsContainers/HealthBar.set_tint_progress(monster_res.HEALTH_COLOUR)
+	# return the modified amount so it can be used upstream
+	return (modified_amount if amount >= 0 else amount)
 
 func change_energy(amount: float) -> void:
 	monster_res.current_ep += amount
-	monster_res.current_ep = clamp(monster_res.current_ep, 0, monster_res.get_stat("max ep"))
 	var tween = create_tween()
 	tween.tween_property($Control/StatsContainers/Control/EnergyBar, "value", monster_res.current_ep, 0.5)
+	if monster_res.current_ep <= monster_res.get_low_ep():
+		$Control/StatsContainers/Control/EnergyBar.set_tint_progress(monster_res.ENERGY_LOW_COLOUR)
+	else:
+		$Control/StatsContainers/Control/EnergyBar.set_tint_progress(monster_res.ENERGY_COLOUR)
 
 func change(res: MonsterResource) -> void:
 	texture = load(Data.monster_data[res.id]['battle texture'])

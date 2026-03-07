@@ -6,6 +6,7 @@ var player_reserve_monsters: Array[MonsterResource] = []
 var enemy_reserve_monsters: Array[MonsterResource] = []
 
 func _ready() -> void:
+	BgMusic.in_battle = true
 	$BG.texture = load(Data.biome_bg[Data.current_biome])
 	battle_sprite_setup($StartPositions/Player, $BattleSprites/Player, true, Data.player_monsters)
 	battle_sprite_setup($StartPositions/Enemy, $BattleSprites/Enemy, false, Data.enemy_monsters)
@@ -30,7 +31,15 @@ func create_battle_sprite(pos: Vector2, parent: Node2D, is_player: bool, res: Mo
 	
 func monster_ready(battle_sprite: Sprite2D) -> void:
 	current_battle_sprite = battle_sprite
-	if battle_sprite.playable:
+	current_battle_sprite.monster_res.is_defending = false
+	
+	if healthy_monsters($BattleSprites/Player, player_reserve_monsters) < 1:
+		finish_battle(false)
+		
+	elif healthy_monsters($BattleSprites/Enemy, enemy_reserve_monsters) < 1:
+		finish_battle(true)
+
+	elif battle_sprite.playable:
 		# show the battle menu
 		print(">>> Friendly %s takes a turn" % [Data.monster_data[battle_sprite.monster_res.id]['name']])
 		$BattleMenu.reveal(battle_sprite, player_reserve_monsters)
@@ -44,23 +53,27 @@ func monster_ready(battle_sprite: Sprite2D) -> void:
 		battle_continue()
 
 func monster_death(is_player: bool, index: int, monster_res: MonsterResource) -> void:
-	var reserve_list = player_reserve_monsters if is_player else enemy_reserve_monsters
 	var start_positions = $StartPositions/Player if is_player else $StartPositions/Enemy
-	var player_monster_count : int = $BattleSprites/Player.get_child_count()
 	var pos = start_positions.get_child(index).position
 	var parent = $BattleSprites/Player if is_player else $BattleSprites/Enemy
-	if reserve_list.size():
+	var reserve_list = player_reserve_monsters if is_player else enemy_reserve_monsters
+	if healthy_monsters(null, reserve_list):
 		create_battle_sprite(pos, parent, is_player, reserve_list.pop_at(0), index)
 	
-	if !is_player and player_reserve_monsters.size() <= 0 and player_monster_count <= 1:
-		finish_battle(false)
-	if is_player and enemy_reserve_monsters.size() <= 0 and $BattleSprites/Enemy.get_child_count() <= 1:
-		finish_battle(true)
-	
-	if not is_player:
-		var xp_amount : float = (monster_res.level * 1.0) / player_monster_count
+	if not is_player and $BattleSprites/Player.get_child_count() > 0:
+		var xp_amount : float = (monster_res.level * 1.0) / $BattleSprites/Player.get_child_count()
 		for battle_sprite in $BattleSprites/Player.get_children():
-			battle_sprite.add_xp(int(xp_amount))
+			battle_sprite.add_xp(floori(xp_amount))
+
+func healthy_monsters(current_monsters: Node2D, reserve_monsters: Array[MonsterResource]) -> int:
+	var healthy_mons: int = 0
+	if current_monsters and current_monsters.get_child_count() > 0:
+		for sprite: Sprite2D in current_monsters.get_children():
+			healthy_mons += 1 if sprite.monster_res.current_hp > 0 else 0
+	if reserve_monsters and reserve_monsters.size() > 0:
+		for mon: MonsterResource in reserve_monsters:
+			healthy_mons += 1 if mon.current_hp > 0 else 0
+	return healthy_mons
 	
 func perform_attack(index: int, info: Data.Attack) -> void:
 	var offensive : bool = Data.attack_data[info]['offensive']
@@ -72,13 +85,14 @@ func perform_attack(index: int, info: Data.Attack) -> void:
 		print("  - targetting %s" % target.monster_res.get_attribute('name'))
 		$EffectSprites/BattleAttackSprite.play(info, target.position)
 		current_battle_sprite.attack_animation()
-		
-		var damage: float = Data.attack_data[info]['amount'] * current_battle_sprite.monster_res.level
+
+		# attack and healing damage modified by attacking monster level
+		var damage: float = Data.attack_data[info]['amount'] * current_battle_sprite.monster_res.level_mod()
 		var element: Data.Element = Data.attack_data[info]['element']
 		var energy_cost: float = (Data.attack_data[info]['cost'] * -1)
-		target.change_health(damage, element)
+		damage = target.change_health(damage, element)
 		current_battle_sprite.change_energy(energy_cost)
-		print("  - doing %10.3f hp damage" % damage)
+		print("  - doing %10.3f hp %s" % [(damage * 1.0 if damage > 0 else -1.0), "damage" if damage >= 0 else "healing"])
 	else:
 		print("  - but fails to target anyone")
 
@@ -88,6 +102,7 @@ func finish_battle(player_won: bool) -> void:
 	else:
 		print("You lost! Game over.")
 		get_tree().quit()
+	BgMusic.in_battle = false
 	var monster_array: Array[MonsterResource]
 	for battle_sprite in $BattleSprites/Player.get_children():
 		monster_array.append(battle_sprite.monster_res)
@@ -102,6 +117,7 @@ func battle_continue() -> void:
 
 func _on_battle_menu_defend() -> void:
 	print("  - They chose to defend")
+	current_battle_sprite.monster_res.is_defending = true
 	$BattleMenu.finish()
 	battle_continue()
 
@@ -123,7 +139,7 @@ func _on_battle_select_sprite_use(index: int, info: Variant, state: Data.MenuSta
 		perform_attack(index, info)
 	if state == Data.MenuState.CATCH:
 		var target: Sprite2D = $BattleSprites/Enemy.get_child(index)
-		if target.monster_res.current_hp <= target.monster_res.get_stat('max hp') * 0.1:
+		if target.monster_res.current_hp <= target.monster_res.get_low_hp():
 			player_reserve_monsters.append(target.monster_res)
 			target.queue_free()
 	battle_continue()

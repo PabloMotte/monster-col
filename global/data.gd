@@ -3,6 +3,7 @@ extends Node
 # Overworld data
 enum CharacterStyle {CHARACTER, BLOND, PLAYER, GREEN, FIRE, GRASS, ICE, PURPLE, STRAW, BOY, GIRL}
 enum Location {OVERWORLD, HOUSE, HOSPITAL, GRASS_ARENA, FIRE_ARENA, BATTLE}
+enum Quest {BOSS_FIGHT, CATCH_ALL, DEFEAT_ALL}
 const ANIMATION_SPEED = 6
 const TILE_ANIMATION_SPEED = 2
 const character_view_directions = {
@@ -222,10 +223,10 @@ const attack_data = {
 		'texture': "res://graphics/attack effects/attack6.png",
 		'sound': "res://audio/green.wav"}
 	}
-const element_modifier = {
+const element_modifier = { # like rock/paper/scissors -> fire > plant > water > fire > ...)
 	Element.FIRE: {Element.FIRE: 1, Element.WATER: 0.5, Element.PLANT: 2},
+	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1},
 	Element.WATER: {Element.FIRE: 2, Element.WATER: 1, Element.PLANT: 0.5},
-	Element.PLANT: {Element.FIRE: 0.5, Element.WATER: 2, Element.PLANT: 1}
 	}
 const LEVEL_XP_MULT := 4
 

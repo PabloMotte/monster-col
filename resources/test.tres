@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="MonsterResource" format=3 uid="uid://cs3yrgshqylxr"]
-
-[ext_resource type="Script" uid="uid://cq60k5sf0cjq6" path="res://resources/monster_res.gd" id="1_ytc5p"]
-
-[resource]
-script = ExtResource("1_ytc5p")
-level = 10
-metadata/_custom_type_script = "uid://cq60k5sf0cjq6"

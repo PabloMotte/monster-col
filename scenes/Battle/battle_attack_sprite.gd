@@ -2,6 +2,8 @@ extends Sprite2D
 
 func play(attack: Data.Attack, pos: Vector2) -> void:
 	position = pos
+	$AttackSound.stream = load(Data.attack_data[attack]['sound'])
+	$AttackSound.play()
 	texture = load(Data.attack_data[attack]['texture'])
 	var tween = create_tween()
 	tween.tween_property(self, "visible", true, 0)

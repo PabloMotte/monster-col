@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cxv4csgbp3pwc" path="res://scenes/characters/character.tscn" id="1_y5q4p"]
 [ext_resource type="Script" uid="uid://b85ug6xsapsbr" path="res://scenes/characters/nurse.gd" id="2_ongif"]
 [ext_resource type="PackedScene" uid="uid://cv63lfjtpnaqy" path="res://scenes/characters/dialog_box.tscn" id="3_amd3f"]
+[ext_resource type="AudioStream" uid="uid://cmqrwuwxm1781" path="res://audio/green.wav" id="4_amd3f"]
 
 [node name="Nurse" unique_id=1690388893 instance=ExtResource("1_y5q4p")]
 collision_layer = 4
@@ -15,5 +16,8 @@ look_around = false
 [node name="DialogBox" parent="." index="3" unique_id=375533247 instance=ExtResource("3_amd3f")]
 visible = false
 z_index = 2
-anchors_preset = -1
 offset_bottom = -43.0
+
+[node name="HealSound" type="AudioStreamPlayer2D" parent="." index="4" unique_id=1900737316]
+stream = ExtResource("4_amd3f")
+volume_db = -10.0

@@ -30,9 +30,13 @@ func white_screen(character: Character) -> void:
 	$ColorRect.color = Color.WHITE
 	var tween = create_tween()
 	tween.tween_property($ColorRect, "modulate:a", 1.0, 0.8)
+	tween.tween_callback(_heal_sound.bind(character))
 	tween.tween_interval(0.5)
 	tween.tween_callback(_heal_monsters.bind(character))
 	tween.tween_property($ColorRect, "modulate:a", 0.0, 0.8)
+
+func _heal_sound(character: Character) -> void:
+	character.heal_sound()
 
 func _heal_monsters(character: Character) -> void:
 	for monster in Data.player_monsters:

@@ -20,3 +20,5 @@ func finish_dialog() -> void:
 	dialog_index += 1
 	show_dialog()
 	
+func heal_sound() -> void:
+	$HealSound.play()

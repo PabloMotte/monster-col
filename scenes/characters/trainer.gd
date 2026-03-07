@@ -8,6 +8,7 @@ var defeated := false:
 	set(newValue):
 		defeated = newValue
 		_save_trainer()
+@export var boss: bool = false
 
 func test_defeat():
 	defeated = true
@@ -57,7 +58,8 @@ func _on_walk_wait_timer_timeout() -> void:
 
 
 func show_dialog():
-	$DialogBox.set_text(dialog[dialog_index] if not defeated else defeat_dialog[dialog_index])
+	var current_dialog = dialog if not defeated else defeat_dialog
+	$DialogBox.set_text(current_dialog[dialog_index])
 	$DialogBox.show()
 
 

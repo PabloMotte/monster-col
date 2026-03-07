@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://4wddkk6qc3il" path="res://graphics/objects/arena_fire.png" id="3_c3d33"]
 [ext_resource type="Script" uid="uid://cq60k5sf0cjq6" path="res://resources/monster_res.gd" id="3_w7e7j"]
 [ext_resource type="Texture2D" uid="uid://dcu36prksuf43" path="res://graphics/objects/palm1.png" id="4_ch3i4"]
+[ext_resource type="PackedScene" uid="uid://deba1um2bbwlq" path="res://scenes/characters/npc.tscn" id="4_v6rrw"]
 [ext_resource type="Texture2D" uid="uid://dbj1fvygrb6qn" path="res://graphics/objects/palm2.png" id="5_n8jux"]
+[ext_resource type="Script" uid="uid://bb2mg0fu8hv3c" path="res://resources/quest_res.gd" id="5_usmjs"]
 [ext_resource type="Texture2D" uid="uid://bx22j2dhf7ast" path="res://graphics/objects/pillar.png" id="6_61nx7"]
 [ext_resource type="Texture2D" uid="uid://b1cjtefg3lhxq" path="res://graphics/objects/pillar_broken.png" id="7_w7e7j"]
 [ext_resource type="Texture2D" uid="uid://e2rw3gq1jahp" path="res://graphics/objects/tree_snow.png" id="8_v6rrw"]
@@ -46,6 +48,11 @@ id = 2
 level = 8
 metadata/_custom_type_script = "uid://cq60k5sf0cjq6"
 
+[sub_resource type="Resource" id="Resource_md8tm"]
+script = ExtResource("5_usmjs")
+quest = 2
+metadata/_custom_type_script = "uid://bb2mg0fu8hv3c"
+
 [node name="Overworld" unique_id=1523202104 instance=ExtResource("1_fl1qg")]
 
 [node name="Floor" parent="BG" parent_id_path=PackedInt32Array(169859498) index="0" unique_id=109598970]
@@ -59,11 +66,11 @@ position = Vector2(-144, -144)
 
 [node name="Trainer" parent="Objects/Characters" parent_id_path=PackedInt32Array(1998534762) index="1" unique_id=1574764957 instance=ExtResource("2_n8jux")]
 position = Vector2(213, -100)
-look_around = false
 dialog = Array[String](["The view up here is amazing", "Let's fight"])
 defeat_dialog = Array[String](["Okay, time go head out"])
 monsters = Array[ExtResource("3_w7e7j")]([])
 char_style = 1
+look_around = false
 
 [node name="Trainer2" parent="Objects/Characters" parent_id_path=PackedInt32Array(1998534762) index="2" unique_id=821554299 instance=ExtResource("2_n8jux")]
 position = Vector2(-197, -160)
@@ -105,9 +112,10 @@ char_style = 10
 
 [node name="Trainer6" parent="Objects/Characters" parent_id_path=PackedInt32Array(1998534762) index="8" unique_id=470331812 instance=ExtResource("2_n8jux")]
 position = Vector2(-317, -656)
-dialog = Array[String](["I ma the ice boss!", "No arena yet :("])
+dialog = Array[String](["I'm the ice boss. You want to challenge me?", "No arena yet :( We'll fight here!"])
 defeat_dialog = Array[String](["Well done!"])
 monsters = Array[ExtResource("3_w7e7j")]([])
+boss = true
 char_style = 6
 
 [node name="Trainer9" parent="Objects/Characters" parent_id_path=PackedInt32Array(1998534762) index="9" unique_id=1581351611 instance=ExtResource("2_n8jux")]
@@ -116,6 +124,13 @@ dialog = Array[String](["It's so cold! "])
 defeat_dialog = Array[String](["Finally I can go home!"])
 monsters = Array[ExtResource("3_w7e7j")]([])
 char_style = 1
+
+[node name="NPC" parent="Objects/Characters" parent_id_path=PackedInt32Array(1998534762) index="10" unique_id=2081346331 instance=ExtResource("4_v6rrw")]
+position = Vector2(-67, -100)
+dialog = Array[String](["Somehow Palpatine returned", "You have xxx. Go defeat him!"])
+fin_dialog = Array[String](["You did it! Well done!"])
+quest_res = SubResource("Resource_md8tm")
+char_style = 7
 
 [node name="ArenaGrass" type="Sprite2D" parent="Objects/SimpleObjects" parent_id_path=PackedInt32Array(174387073) index="0" unique_id=97305342]
 position = Vector2(333, -368)
@@ -530,22 +545,22 @@ position = Vector2(-42, -252)
 texture = ExtResource("14_vnvtj")
 
 [node name="TransitionGate" parent="TransitionGates" parent_id_path=PackedInt32Array(2099841984) index="0" unique_id=1150724127 instance=ExtResource("16_61nx7")]
-position = Vector2(-42, -204)
+position = Vector2(-42, -210)
 target = 2
 start_offset = "Down"
 
 [node name="TransitionGate3" parent="TransitionGates" parent_id_path=PackedInt32Array(2099841984) index="1" unique_id=1994823057 instance=ExtResource("16_61nx7")]
-position = Vector2(-711, -29)
+position = Vector2(-712, -35)
 target = 1
 start_offset = "Down"
 
 [node name="TransitionGate4" parent="TransitionGates" parent_id_path=PackedInt32Array(2099841984) index="2" unique_id=788430557 instance=ExtResource("16_61nx7")]
-position = Vector2(-781, 557)
+position = Vector2(-782, 551)
 target = 4
 start_offset = "Down"
 
 [node name="TransitionGate2" parent="TransitionGates" parent_id_path=PackedInt32Array(2099841984) index="3" unique_id=159385101 instance=ExtResource("16_61nx7")]
-position = Vector2(334, -312)
+position = Vector2(334, -319)
 target = 3
 start_offset = "Down"
 

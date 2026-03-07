@@ -23,6 +23,7 @@ config/icon="res://icon.svg"
 
 Data="*res://global/data.gd"
 TransitionLayer="*uid://cwmpo4dirdg8t"
+BgMusic="*uid://bp0w0ugx403e"
 
 [display]
 

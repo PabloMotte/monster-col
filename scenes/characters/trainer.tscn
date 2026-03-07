@@ -15,10 +15,10 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("2_7ugo5")
 stop_radius = 24
-look_around = true
 dialog = Array[String]([])
 defeat_dialog = Array[String]([])
 monsters = Array[ExtResource("3_hdxyo")]([SubResource("Resource_nqakf")])
+boss = false
 
 [node name="Timers" type="Node" parent="." index="2" unique_id=896198288]
 

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bp0w0ugx403e"]
+
+[ext_resource type="AudioStream" uid="uid://o6nx3ybmvvt1" path="res://audio/overworld.ogg" id="1_8f2av"]
+[ext_resource type="Script" uid="uid://ckcx21c1kt6th" path="res://scenes/bg_music.gd" id="1_188bi"]
+[ext_resource type="AudioStream" uid="uid://dg1a5k3vlfpra" path="res://audio/battle.ogg" id="2_188bi"]
+
+[node name="BGMusic" type="Node" unique_id=686907416]
+script = ExtResource("1_188bi")
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="." unique_id=1891790946]
+stream = ExtResource("1_8f2av")
+volume_db = -20.0
+autoplay = true
+
+[node name="BattleMusic" type="AudioStreamPlayer" parent="." unique_id=1868245168]
+stream = ExtResource("2_188bi")
+volume_db = -15.0
