@@ -1,0 +1,2 @@
+Use outline shader to outline selected battler+target, and "flash" outline when battler is ready (sin() for pixel width up and down)
+Use pixelate shader for evolution?

@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://7gi1acoe3cfp"]
+
+[ext_resource type="Texture2D" uid="uid://dgs1jxpqvpvoa" path="res://2 Shader projects/3 Outline/bird.png" id="1_1mkxl"]
+[ext_resource type="Shader" uid="uid://cbxi236mg5pqt" path="res://2 Shader projects/3 Outline/outline.gdshader" id="1_myle8"]
+[ext_resource type="Script" uid="uid://b1dhqdx06rdh4" path="res://2 Shader projects/3 Outline/outline.gd" id="1_yss13"]
+[ext_resource type="Texture2D" uid="uid://cqmj0wwwhqw4b" path="res://icon.svg" id="4_eceyw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3ucj"]
+shader = ExtResource("1_myle8")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.250000011875
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myle8"]
+atlas = ExtResource("1_1mkxl")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3ucj"]
+atlas = ExtResource("1_1mkxl")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yss13"]
+atlas = ExtResource("1_1mkxl")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eceyw"]
+atlas = ExtResource("1_1mkxl")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q1i1o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myle8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3ucj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yss13")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eceyw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1i1o"]
+shader = ExtResource("1_myle8")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 0.4270000202825
+
+[node name="Outline" type="Node2D"]
+script = ExtResource("1_yss13")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_t3ucj")
+sprite_frames = SubResource("SpriteFrames_q1i1o")
+autoplay = "default"
+
+[node name="Camera2D" type="Camera2D" parent="AnimatedSprite2D"]
+zoom = Vector2(5, 5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_q1i1o")
+texture = ExtResource("4_eceyw")
+
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = -83.0
+offset_top = 80.0
+offset_right = 81.0
+offset_bottom = 102.0
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]

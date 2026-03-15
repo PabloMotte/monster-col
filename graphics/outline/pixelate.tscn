@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d5ggiemop2nx"]
+
+[ext_resource type="Shader" uid="uid://oie4d8sxstue" path="res://2 Shader projects/5 Pixelate/pixelate.gdshader" id="1_d4ikv"]
+[ext_resource type="Texture2D" uid="uid://cqmj0wwwhqw4b" path="res://icon.svg" id="1_q3tmi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w75b3"]
+shader = ExtResource("1_d4ikv")
+shader_parameter/pixel_size = 6
+
+[node name="Pixelate" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_w75b3")
+texture = ExtResource("1_q3tmi")
+
+[node name="Camera2D" type="Camera2D" parent="Sprite2D"]
+zoom = Vector2(5, 5)
